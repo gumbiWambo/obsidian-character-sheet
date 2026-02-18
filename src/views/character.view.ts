@@ -1,5 +1,5 @@
 import { CharacterModel } from "models/character.model";
-import { debounce, MarkdownRenderChild, Plugin } from "obsidian";
+import { MarkdownRenderChild, Plugin } from "obsidian";
 import CharacterHeader from "./character-header.view";
 import CharacterInventory from "./character-inventory.view";
 
@@ -23,7 +23,6 @@ export default class CharacterRenderChild extends MarkdownRenderChild {
     public rendererParameters: RendererParameters
   ) {
     super(rendererParameters.container)
-    this.#addLinkHover()
     this.#container = rendererParameters.container
     this.#plugin = rendererParameters.plugin
     this.#context = rendererParameters.context ?? ""
@@ -41,7 +40,7 @@ export default class CharacterRenderChild extends MarkdownRenderChild {
       this.containerEl.empty()
       this.containerEl.appendChild(this.#createStyle())
       this.containerEl.addClass("character-sheet-layout")
-      const header = new CharacterHeader(this.#character, this.containerEl)
+      const header = new CharacterHeader(this.#character, this.containerEl, this.#plugin)
       const inventory = new CharacterInventory(this.#plugin, this.#character, this.containerEl, this.#context)
       this.containerEl.appendChild(header.get())
       this.containerEl.appendChild(inventory.get())
@@ -51,22 +50,6 @@ export default class CharacterRenderChild extends MarkdownRenderChild {
   onunload(): void {
     this.#workspaceEl.removeClass("character-sheet")
     this.#style.remove()
-  }
-
-  #addLinkHover() {
-    this.containerEl.on("mouseover", "a.internal-link", debounce((event) => {
-      this.#plugin.app.workspace.trigger("hover-link", {
-        event,
-        source: this.#plugin.manifest.id,
-        hoverParent: this.#plugin.app.workspace.getLeaf(),
-        targetEl: event.target as HTMLAnchorElement,
-        linktext: (event.target as HTMLAnchorElement).dataset.href
-      })
-    }, 10))
-    this.containerEl.on("click", "a.internal-link", (ev) =>
-      this.#plugin.app.workspace.openLinkText(
-        (ev.target as HTMLAnchorElement).dataset.href ?? '', "character-sheet-view")
-      );
   }
 
   #createStyle(): HTMLElement {
