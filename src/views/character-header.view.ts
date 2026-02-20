@@ -1,19 +1,23 @@
+import DnDCharacterSheetPlugin from "main"
 import { Score } from "models/attributes.model"
 import { CharacterModel } from "models/character.model"
 import { Plugin } from "obsidian"
 import { IconService } from "services/icon.service"
+import { LanguageService } from "services/language.service"
 import { numberToSignedString } from "utils/Number"
 
 export default class CharacterHeader {
   #character: CharacterModel | undefined
   #plugin: Plugin
   #iconService: IconService
+  #languageService: LanguageService
   containerEl: HTMLElement
 
   constructor(character: CharacterModel | undefined, containerEl: HTMLElement, plugin: Plugin) {
     this.#character = character
     this.#plugin = plugin
     this.#iconService = new IconService(this.#plugin)
+    this.#languageService = new LanguageService(this.#plugin as DnDCharacterSheetPlugin)
     this.containerEl = containerEl
 
   }
@@ -56,16 +60,15 @@ export default class CharacterHeader {
 
   #createClass(): HTMLElement {
     const classEl = this.containerEl.createEl('p')
-    const designation = this.containerEl.createSpan()
-    designation.innerText = "Class:"
-    designation.style.marginRight = "4px"
-    classEl.appendChild(designation)
 
     this.#character?.classWithSubclass.forEach(classSubclass => {
       const classes = this.containerEl.createSpan()
       const path = this.#iconService.getSourcePathForClassIcon(classSubclass.name.toLocaleLowerCase())
+      const iconLevelContainer = this.containerEl.createDiv()
+      iconLevelContainer.style.position = 'relative'
       
       classes.style.marginRight = '8px'
+      classes.style.display = 'flex'
 
       if (path) {
         const img = this.containerEl.createEl('img')
@@ -73,15 +76,28 @@ export default class CharacterHeader {
         img.style.height = '24px'
         img.style.width = '24px'
         img.style.marginRight = '4px'
-        classes.appendChild(img)
+        iconLevelContainer.appendChild(img)
       }
 
-      classes.appendText(`${classSubclass.name} Level: ${classSubclass.level} (${classSubclass.subclass})`)
+      const levelSpan = this.containerEl.createEl('span')
+      levelSpan.innerText = classSubclass.level.toString() ?? ''
+      levelSpan.style.position = 'absolute'
+      levelSpan.style.bottom = '0px'
+      levelSpan.style.right = '50%'
+      levelSpan.style.fontSize = '12px'
+      iconLevelContainer.appendChild(levelSpan)
+
+      const name = this.#languageService.translate(`classes.${classSubclass.name.toLocaleLowerCase()}`)
+      classes.appendChild(iconLevelContainer)
+      classes.appendText(`${name} (${classSubclass.subclass})`)
       classEl.appendChild(classes)
     })
 
     classEl.style.gridArea = 'class'
     classEl.style.margin = '0px'
+    classEl.style.display = 'flex'
+    classEl.style.flexDirection = 'row'
+    classEl.style.alignItems = 'center'
     return classEl
   }
 
@@ -110,7 +126,7 @@ export default class CharacterHeader {
     abilityContainer.style.color = color
 
     const title = this.containerEl.createEl("span")
-    title.innerText = abilityName
+    title.innerText = this.#languageService.translate(`ability.${abilityName.toLocaleLowerCase()}`)
 
     abilityContainer.appendChild(title)
     abilityContainer.appendChild(this.#createHr())
@@ -129,9 +145,17 @@ export default class CharacterHeader {
 
     abilityContainer.appendChild(this.#createHr())
 
+    const savingThrowEl = this.containerEl.createEl('span')
+    savingThrowEl.appendText(this.#languageService.translate('ability.savingThrow') + ': ')
+    savingThrowEl.appendText(numberToSignedString(score.savingThorw) ?? '')
+    abilityContainer.appendChild(savingThrowEl)
+
+    abilityContainer.appendChild(this.#createHr())
+
     score.abilityScores.forEach(x => {
       const ability = this.containerEl.createDiv()
-      ability.innerText = `${x.name}: ${numberToSignedString(x.value)}`
+      const abilityTranslationKey = `ability.${x.name.toLocaleLowerCase()}`
+      ability.innerText = `${this.#languageService.translate(abilityTranslationKey)}: ${numberToSignedString(x.value)}`
       abilityContainer.appendChild(ability)
     })
 

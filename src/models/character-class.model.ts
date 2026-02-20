@@ -71,6 +71,7 @@ export class CharacterClassModel {
     if (this.#chaSave.includes(lowerClassName)) {
       this.savingThrows.push("charismaSavingThrow")
     }
+    debugger
   }
 
   

@@ -62,11 +62,11 @@ export class CharacterModel {
   }
 
   get wisdom(): Wisdom {
-    return new Wisdom(this.#stats[4] ?? 0, this.proficiencyBonus, [], [])
+    return new Wisdom(this.#stats[4] ?? 0, this.proficiencyBonus, this.proficiencies, this.#expertise)
   }
 
   get charisma(): Charisma {
-    return new Charisma(this.#stats[5] ?? 0, this.proficiencyBonus, [], [])
+    return new Charisma(this.#stats[5] ?? 0, this.proficiencyBonus, this.proficiencies, this.#expertise)
   }
 
   constructor(classes: Array<CharacterClassModel>, name: string, background: string, stats: number[], proficiencies: Array<string>, expertise: Array<string>){
@@ -76,6 +76,6 @@ export class CharacterModel {
     this.#stats = stats
     this.#proficiencies = proficiencies
     this.#expertise = expertise
-    // console.log(this.strength, this.dexterity, this.constitution, this.intelligence, this.wisdom, this.charisma)
+    console.log(this.strength, this.dexterity, this.constitution, this.intelligence, this.wisdom, this.charisma)
   }
 }

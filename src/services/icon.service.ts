@@ -1,19 +1,31 @@
-import { addIcon, Plugin } from "obsidian";
+import DnDCharacterSheetPlugin from "main";
+import { addIcon, getIcon, normalizePath, Plugin } from "obsidian";
 
 export class IconService {
-  #plugin: Plugin
+  #plugin: DnDCharacterSheetPlugin
   constructor(plugin: Plugin) {
-    this.#plugin = plugin
+    this.#plugin = plugin as DnDCharacterSheetPlugin
   }
 
-  public registerIcons() {
-    addIcon('add-character-sheet', 'assets/icons/add-sheet-icon.svg')
+  public async registerIcons() {
+    const path = `${this.#plugin.manifest.dir}/src/assets/icons/classes/${this.#plugin.settings.icons}`
+    const list = await this.#plugin.app.vault.adapter.list(path)
+    const svgs = await Promise.all(list.files.map(async x => {
+      const content = await this.#plugin.app.vault.adapter.read(x)
+      return {
+        name: x.split('/').pop()?.split('.')[0] ?? '',
+        content
+      }
+    }))
+    svgs.forEach(svg => {
+      addIcon(svg.name, svg.content)
+    })
   }
 
-  public getSourcePathForClassIcon(className: string) {
+  public getSourcePathForClassIcon(className: string): string {
     const path = this.#plugin.manifest.dir
     if (path && className) {
-      return this.#plugin.app.vault.adapter.getResourcePath(`${path}/src/assets/icons/classes/default/${className}.symbol.svg`)
+      return this.#plugin.app.vault.adapter.getResourcePath(`${path}/src/assets/icons/classes/${this.#plugin.settings.icons}/${className}.symbol.svg`)
     }
     return ''
   }
