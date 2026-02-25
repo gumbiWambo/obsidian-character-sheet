@@ -51,7 +51,7 @@ export default class DnDCharacterSheetPluginSettingTab extends PluginSettingTab 
       })).addDropdown(dropdown => {
         dropdown.addOption("default", "Default")
         dropdown.addOption("max", "Max")
-        dropdown.setValue(this.#plugin.settings.language)
+        dropdown.setValue(this.#plugin.settings.icons)
         dropdown.onChange(async (value) => {
           this.#plugin.settings.icons = value
           this.#plugin.saveSettings()

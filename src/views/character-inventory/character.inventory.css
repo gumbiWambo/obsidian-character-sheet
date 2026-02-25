@@ -1,0 +1,8 @@
+/*Inventory*/
+.character-sheet-inventory {
+  grid-area: items;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px white;
+  padding: 4px;
+}

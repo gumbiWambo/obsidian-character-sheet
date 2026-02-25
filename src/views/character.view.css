@@ -1,0 +1,23 @@
+/*Workspace style for character sheet files*/
+.character-sheet div.cm-preview-code-block.cm-embed-block.markdown-rendered.cm-lang-character {
+  height: 100% !important;
+}
+
+.character-sheet .markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer {
+  margin: 0 4px 0 4px !important;
+  max-width: 100% !important;
+}
+
+.character-sheet .cm-contentContainer>.cm-content.cm-lineWrapping {
+  max-width: 100% !important;
+}
+
+/*Basic Sheet Layout*/
+.character-sheet-layout {
+  height: 100% !important;
+  display: grid;
+  grid-template-rows: 64px 2fr 128px;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 4px;
+  grid-template-areas: "header header header" "attributes features items" "footer footer footer";
+}

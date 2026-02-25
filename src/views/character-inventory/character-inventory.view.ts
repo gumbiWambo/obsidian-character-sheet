@@ -21,11 +21,7 @@ export default class CharacterInventory {
 
   get(): HTMLElement {
     const inventory = this.containerEl.createDiv()
-    inventory.style.gridArea = 'items'
-    inventory.style.display = 'flex'
-    inventory.style.flexDirection = 'column'
-    inventory.style.border = 'solid 1px white'
-    inventory.style.padding = '4px'
+    inventory.addClass("character-sheet-inventory")
     const title = this.containerEl.createEl('h3')
     title.innerText = 'Inventory'
     inventory.appendChild(title)
@@ -38,8 +34,7 @@ export default class CharacterInventory {
 
   #createHr(): HTMLElement {
     const hr = this.containerEl.createEl('hr')
-    hr.style.width = '100%'
-    hr.style.flexGrow = '0'
+    hr.addClass('character-sheet-divider')
     return hr
   }
 

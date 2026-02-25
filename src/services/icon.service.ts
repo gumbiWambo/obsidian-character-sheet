@@ -29,4 +29,13 @@ export class IconService {
     }
     return ''
   }
+
+  public async getShape(iconName: string): Promise<string> {
+    const path = this.#plugin.manifest.dir
+    if (path && iconName) {
+      const resourcePath = `${path}/src/assets/shapes/${iconName}.svg`
+      return await this.#plugin.app.vault.adapter.read(resourcePath);
+    }
+    return ''
+  }
 }

@@ -1,0 +1,70 @@
+/*Header*/
+.character-sheet-header {
+  display: grid;
+  grid-area: header;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 32px 32px;
+  grid-template-areas: "name background" "class class";
+  row-gap: 4px;
+}
+
+.character-sheet-header-name {
+  grid-area: name;
+  margin: 0px !important;
+}
+
+.character-sheet-header-designation {
+  margin-right: 4px;
+}
+
+.character-sheet-header-class {
+  margin-right: 4px !important;
+  display: flex;
+  grid-area: class;
+  flex-direction: row;
+  align-items: center;
+}
+
+.character-sheet-header-class:first {
+  margin-left: 4px;
+}
+
+.character-sheet-level {
+  position: relative;
+  margin-right: 4px;
+}
+
+
+
+.character-sheet-class-icon {
+  height: 24px;
+  width: 24px;
+
+  animation-name: vertical-spin;
+  animation-duration: 1s;
+}
+
+.grow-0 {
+  flex-grow: 0 !important;
+}
+
+.character-sheet-level-number {
+  position: absolute;
+  bottom: 0px;
+  right: 40%;
+  font-size: 12px;
+}
+.character-sheet-level-number.double-digit {
+  right: 25%;
+}
+
+.character-sheet-background {
+  grid-area: background;
+  align-self: center;
+  margin: 0px !important;
+}
+
+.character-sheet-class-name {
+  animation-name: text-slide-in;
+  animation-duration: 0.3s;
+}

@@ -76,6 +76,5 @@ export class CharacterModel {
     this.#stats = stats
     this.#proficiencies = proficiencies
     this.#expertise = expertise
-    console.log(this.strength, this.dexterity, this.constitution, this.intelligence, this.wisdom, this.charisma)
   }
 }

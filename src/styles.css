@@ -1,0 +1,8 @@
+@import "./views/character.css";
+@import "./utils/styles/animations.css";
+
+/*divider*/
+hr.character-sheet-divider {
+  width: 100%;
+  flex-grow: 0 !important;
+}

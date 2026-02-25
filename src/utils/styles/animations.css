@@ -1,0 +1,26 @@
+@keyframes text-slide-in {
+  0% {
+    overflow: hidden;
+    word-break: keep-all;
+    word-wrap: unset;
+    white-space: nowrap;
+    overflow-wrap: break-word;
+    width: 0%;
+  }
+  
+  100% {
+    overflow: hidden;
+    word-break: keep-all;
+    word-wrap: unset;
+    white-space: nowrap;
+    overflow-wrap: break-word;
+    width: 100%;
+  }
+}
+
+@keyframes vertical-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotateY(360deg);
+  }
+}

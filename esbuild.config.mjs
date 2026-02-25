@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 import process from "process";
+import { sassPlugin } from "esbuild-sass-plugin";
 import { builtinModules } from 'node:module';
-import sveltePlugin from "esbuild-svelte";
 
 const banner =
 `/*
@@ -16,7 +16,7 @@ const context = await esbuild.context({
 	banner: {
 		js: banner,
 	},
-	entryPoints: ["src/main.ts"],
+	entryPoints: ["src/main.ts", "src/styles.css"],
 	bundle: true,
 	external: [
 		"obsidian",
@@ -38,10 +38,11 @@ const context = await esbuild.context({
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
-	outfile: "main.js",
+	// outfile: "main.js",
+	outdir: "./",
 	minify: prod,
 	plugins: [
-		sveltePlugin()
+		sassPlugin()
 	]
 });
 

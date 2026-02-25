@@ -1,0 +1,4 @@
+@import "./character.view.css";
+@import "./character-inventory/character.inventory.css";
+@import "./character-header/character.header.css";
+@import "./character-score/character.score.css";

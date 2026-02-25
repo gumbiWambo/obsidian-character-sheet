@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 1560 520" xmlns="http://www.w3.org/2000/svg" stroke-width="20px" stroke="black">
+  <circle cx="260" cy="260" r="250" fill="transparent"/>
+  <g>
+    <!--triangle-->
+    <path d="M 300 508 L 247 445 z" fill="transparent"/>
+    <path d="M 252 445 L 200 504 z" fill="transparent" />
+    <!--Left and Right-->
+    <path d="M 10 240 L 125 415 L 125 470" fill="transparent" />
+    <path d="M 510 240 L 395 415 L 395 470" fill="transparent"/>
+    <text x="125" y="60%" class="character-modifier-text"></text>
+  </g>
+  <g>
+    <path d="M 455 100 L 1400 100 L 1450 140"/>
+    <path d="M 480 140 L 1500 140"/>
+    <path d="M 1494 134 L 1550 403"/>
+    <path d="M 1454 134 L 1510 403"/>
+    <path d="M 475 395 L 1550 395"/>
+    <text x="900" y="330" class="character-score-text"></text>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+.character-ability-scores {
+  display: grid;
+  grid-area: attributes;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "left right";
+}
+
+.character-sheet-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 1px white;
+}
+
+.character-scores-left {
+ grid-area: left;
+}
+
+.character-scores-right {
+  grid-area: right;
+}
+
+.character-scores-score-container {
+  display: flex;
+}
+
+.character-scores-modifier {
+  height: 50px;
+}
+
+.character-modifier-text {
+  font-size: 200px;
+  stroke-width: 1px;
+}
+
+.character-score-text {
+  stroke-width: 1px;
+  font-size: 150px;
+}
+
+.character-scores-score {
+  border: 1px solid;
+  padding-left: 8px;
+}

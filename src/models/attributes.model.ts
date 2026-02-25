@@ -19,7 +19,6 @@ export abstract class Score {
   }
 
   get savingThorw() {
-    console.log(this.#proficiencies)
     return this.#proficiencies.some(x => x.toLocaleLowerCase() === `${this.#abilityName.toLowerCase()}SavingThrow`.toLocaleLowerCase()) ? this.withModifierBonus : this.modifier;
   }
 
@@ -49,7 +48,7 @@ export abstract class Score {
   }
 }
 
-class Ability {
+export class Ability {
   #name: string
   #value: number
 
